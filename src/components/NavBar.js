@@ -9,7 +9,7 @@ function NavBar(){
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                <Nav.Link href="home">Home</Nav.Link>
+                <Nav.Link href="/">Home</Nav.Link>
                 <NavDropdown title="Interior Paints" id="collasible-nav-dropdown">
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.1">Matt Emulsion</NavDropdown.Item>
@@ -65,12 +65,11 @@ function NavBar(){
                     <NavDropdown.Item href="#action/3.4">Synthetic Hammer Finish</NavDropdown.Item>
                     <NavDropdown.Divider />
                 </NavDropdown>                
+                <Nav.Link href="PaintCalculator">Paint Calculator</Nav.Link>
+                <Nav.Link href="#About">About Us</Nav.Link>
                 </Nav>
                 <Nav>
-                <Nav.Link href="#deets">More deets</Nav.Link>
-                <Nav.Link eventKey={2} href="#memes">
-                    Dank memes
-                </Nav.Link>
+                <Nav.Link href="#ContactUs"><h5>Contact us</h5><p>0321-4606877</p></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             </Navbar>

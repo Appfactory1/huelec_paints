@@ -9,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import './index.css';
 import App from './App';
-import home from './home.js';
+import PaintCalculator from './PaintCalculator.js';
 import * as serviceWorker from './serviceWorker';
 
 const history = createBrowserHistory();
@@ -18,7 +18,7 @@ ReactDOM.render(
   <Router history={history}>
     <Switch>
       <Route exact path="/" component={App} />
-      <Route path="/home" component={home} />
+      <Route path="/PaintCalculator" component={PaintCalculator} />
     </Switch>
   </Router>,
   document.getElementById('root')
