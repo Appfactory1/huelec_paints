@@ -9,6 +9,11 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import './index.css';
 import App from './App';
+
+import ProductCategories from './page/productCategories.jsx';
+import Product from './page/Products.jsx';
+import ProductDetail from './page/productDetail.jsx';
+
 import PaintCalculator from './PaintCalculator.js';
 import * as serviceWorker from './serviceWorker';
 
@@ -18,6 +23,9 @@ ReactDOM.render(
   <Router history={history}>
     <Switch>
       <Route exact path="/" component={App} />
+      <Route path="/products" component={ProductCategories} />
+      <Route exact path={`/:products/:categoryid`} component={Product}/>
+      <Route exact path={`/:categoryid/:productid`} component={ProductDetail}/>
       <Route path="/PaintCalculator" component={PaintCalculator} />
     </Switch>
   </Router>,

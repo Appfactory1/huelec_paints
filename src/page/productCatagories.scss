@@ -1,0 +1,78 @@
+.overall1 {
+  text-align: center;
+  padding: 0vw 5vw 5vw 5vw;
+
+
+.header1{
+  font-family: 'Oswald';
+  font-size: 4vw;
+}
+
+.overview1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+
+.collection-item1 {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    align-items: center;
+    position: relative;
+    border-style: solid;
+    border-color: #412c2c;
+    border-width: 2px;
+
+    .image1 {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+  
+    .custom-button {
+      width: 80%;
+      opacity: 0.7;
+      position: absolute;
+      top: 200px;
+      display: none;
+      transform: translateZ(0);
+      transition: transform 0.25s ease-out;
+    }
+
+    .custom-button:hover {
+      transform: scale(1.05);
+    }
+  
+    &:hover {
+
+      .image1 {
+        opacity: 0.8;
+      }
+  
+      .custom-button {
+        opacity: 0.85;
+        display: flex;
+      }
+    }
+  
+    .collection-footer1 {
+      width: 100%;
+      height: 25%;
+      //justify-content: space-between;
+      font-size: 18px;
+  
+      .name1 {
+        width: 100%;
+        margin-bottom: 3px;
+      }
+  
+      .count1 {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
+}
