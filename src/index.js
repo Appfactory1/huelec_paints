@@ -23,9 +23,9 @@ ReactDOM.render(
   <Router history={history}>
     <Switch>
       <Route exact path="/" component={App} />
-      <Route path="/products" component={ProductCategories} />
-      <Route exact path={`/:products/:categoryid`} component={Product}/>
-      <Route exact path={`/:categoryid/:productid`} component={ProductDetail}/>
+      <Route exact path="/products" component={ProductCategories} />
+      <Route exact path={`/products/:categoryid`} component={Product}/>
+      <Route exact path={`/products/:categoryid/:productid`} component={ProductDetail}/>
       <Route path="/PaintCalculator" component={PaintCalculator} />
     </Switch>
   </Router>,
