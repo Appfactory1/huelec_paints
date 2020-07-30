@@ -10,9 +10,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
 import App from './App';
 
-import ProductCategories from './page/productCategories.jsx';
-import Product from './page/Products.jsx';
-import ProductDetail from './page/productDetail.jsx';
+import ProductCategories from './productCategories.jsx';
+import Product from './Products.jsx';
+import ProductDetail from './productDetail.jsx';
 
 import PaintCalculator from './PaintCalculator.js';
 import * as serviceWorker from './serviceWorker';

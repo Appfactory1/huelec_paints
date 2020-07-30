@@ -10,7 +10,7 @@ function NavBar(){
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="products">Products</Nav.Link>
+                <Nav.Link href="/products">Products</Nav.Link>
                 <NavDropdown title="Interior Paints" id="collasible-nav-dropdown">
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.1">Matt Emulsion</NavDropdown.Item>
