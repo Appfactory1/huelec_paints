@@ -23,13 +23,14 @@ class SignIn extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-        try{
-            auth.signInWithEmailAndPassword(this.state.email, this.state.password);
+        auth.signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {;
             this.props.history.push(`/`);
             console.log('done');
-        } catch (e) {
-            console.log('err');
         }
+        )
+        .catch(e => {
+            console.log('err');
+        })
     };
     
     handleChange = event => {
