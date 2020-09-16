@@ -12,6 +12,9 @@
     font-family: 'Open Sans Condensed';
     font-weight: bolder;
     border: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
     display: flex;
     justify-content: center;

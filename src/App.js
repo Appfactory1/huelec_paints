@@ -22,8 +22,8 @@ class App extends React.Component{
       this.setState({currentUser: user});
       if(this.state.currentUser){
         console.log('signin');
-        auth.signOut();
-        console.log('signout');
+        
+        
       }
     })
   }

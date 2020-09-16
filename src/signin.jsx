@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInWithreduce } from './Actions/userActions';
 import FormInput from './components/formSignIn';
 import CustomButton from './CustomButton';
-import { auth } from './Firebaseapp/firebase.utils';
 import {
     Main,
     SignInContainer,
@@ -10,58 +11,60 @@ import {
   } from './signin.styles';
 
 
-class SignIn extends React.Component {
-    constructor(props) {
-        super(props);
+function SignIn(props) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const userSignin = useSelector((state) => state.userSignin);
+    const { user} = userSignin;
+    const dispatch = useDispatch();
 
-        this.state = {
-            email: '',
-            password: ''
-        }
-    }
-
-
-    handleSubmit = async event => {
+    const handleSubmit = async event => {
         event.preventDefault();
-        auth.signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {;
-            this.props.history.push(`/`);
-            console.log('done');
-        }
-        )
-        .catch(e => {
-            console.log('err');
-        })
+        dispatch(signInWithreduce(email, password));
     };
     
-    handleChange = event => {
-        const { value, name } = event.target;
-        this.setState({
-            [name]: value
-        });
+    const handleChangePassword = event => {
+        const { value } = event.target;
+        setPassword(value);
+    };
+
+    const handleChangeEmail = event => {
+        const { value } = event.target;
+        setEmail(value);
         
     };
 
-    render() {
+    useEffect(() => {
+        console.log(user);
+        if (user) {
+            
+          props.history.push('/');
+        }
+          return () => {
+          
+          };
+        }, [user]);
+
         return (
             <Main>
             <SignInContainer>
             <SignInTitle>Admin Signup</SignInTitle>
             <span>Sign in with your email and password</span>
 
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <FormInput
                 name='email'
                 type='email'
-                handleChange={this.handleChange}
-                value={this.state.email}
+                handleChange={handleChangeEmail}
+                value={email}
                 label='email'
                 required
                 />
                 <FormInput
                 name='password'
                 type='password'
-                value={this.state.password}
-                handleChange={this.handleChange}
+                value={password}
+                handleChange={handleChangePassword}
                 label='password'
                 required
                 />
@@ -72,7 +75,6 @@ class SignIn extends React.Component {
             </SignInContainer>
             </Main>
         );
-    }
 }
 
 export default SignIn;

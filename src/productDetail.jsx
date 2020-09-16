@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Product_Data} from './shopdata.js';
 import './productDetail.scss'
 import NavBar from './components/NavBar.js';
+import { fetchProduct } from './Actions/productActions.js';
+import { useDispatch, useSelector } from 'react-redux';
 
-const productDetail = props => {
-    const cat = props.match.params.categoryid-1;
-    const prod = props.match.params.productid-1;
-    const detail = Product_Data[cat].items[prod];
-    return(
+function ProductDetail(props) {
+    const prod = props.match.params.productid;
+    const productDet = useSelector(state => state.productDet);
+    const {product} = productDet;
+    //product? console.log(product): console.log('nada');
+    //const {products} = data;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchProduct(prod));
+        return () => {}
+    }, [])
+    return(!product ? <div></div> :
         <div>
         <NavBar />
         <div className='cover'>
@@ -15,19 +24,19 @@ const productDetail = props => {
                 <div
                     className='imagedetail'
                     style={{
-                    backgroundImage: `url(${detail.imageUrl})`
+                    backgroundImage: `url(${product['imageUrl']})`
                     }}
                 />
             </div>
             <div className = 'right'>
                 <h2 className='name'>
-                    {detail.name}
+                    {product['name']}
                 </h2>
                 <div className='code'>
                     Code No. : 2292
                 </div>
                 <div className='description'>
-                    {detail.description}
+                    {product['description']}
                 </div>
             </div>
         </div>
@@ -36,4 +45,4 @@ const productDetail = props => {
                     
 }
 
-export default productDetail;
+export default ProductDetail;
