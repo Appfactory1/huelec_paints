@@ -17,7 +17,8 @@ function CategoriesScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
-  const [imageUrl, setImage] = useState('');
+  const [imageUrl, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const categoryDetail = useSelector(state => state.categoryDetail);
   const {categories} = categoryDetail;
   const dispatch = useDispatch();
@@ -61,14 +62,14 @@ function CategoriesScreen(props) {
   }
 
   const deleteHandler = (category) => {
-    dispatch(deleteCategory(category.id));
+    dispatch(deleteCategory(category.id, category.imageuuid));
     setUpdate(!update);
   };
   const uploadFileHandler = (e) => {
-    // const file = e.target.files[0];
-    // const bodyFormData = new FormData();
+    const file = e.target.files[0];
+    setImage(file);
+    //const bodyFormData = new FormData();
     // bodyFormData.append('image', file);
-    // setUploading(true);
     // axios
     //   .post('/api/uploads', bodyFormData, {
     //     headers: {
@@ -117,15 +118,7 @@ function CategoriesScreen(props) {
               </li>
               <li>
                 <label htmlFor="image">Image</label>
-                <input
-                  type="text"
-                  name="image"
-                  value={imageUrl}
-                  id="image"
-                  onChange={(e) => setImage(e.target.value)}
-                ></input>
-                {/* <input type="file" onChange={uploadFileHandler}></input>
-                {uploading && <div>Uploading...</div>} */}
+                { <input type="file" onChange={uploadFileHandler}></input>} 
               </li>
               <li>
                 <button type="submit" className="button">
@@ -168,7 +161,7 @@ function CategoriesScreen(props) {
                   </button>
                   <button
                     className="button"
-                    onClick={() => deleteHandler(category)}
+                    onClick={() => deleteHandler({...category.data(), id: category.id})}
                   >
                     Delete
                   </button>

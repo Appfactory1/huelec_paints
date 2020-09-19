@@ -17,7 +17,7 @@ function ProductsListScreen(props) {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState();
-  const [imageUrl, setImageUrl] = useState(''); 
+  const [imageUrl, setImageUrl] = useState(null); 
   const [parent, setParent] = useState();
   const [countInStock, setCountInStock] = useState();
   const [description, setDescription] = useState('');
@@ -80,7 +80,8 @@ function ProductsListScreen(props) {
     dispatch(deleteProdcut(product.id));
   };
   const uploadFileHandler = (e) => {
-    // const file = e.target.files[0];
+    const file = e.target.files[0];
+    setImageUrl(file);
     // const bodyFormData = new FormData();
     // bodyFormData.append('image', file);
     // setUploading(true);

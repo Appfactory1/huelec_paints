@@ -11,7 +11,7 @@ function productListReducer(state = {products: []}, action) {
       case PRODUCT_SAVE_REQUEST:
         return { loading: true };
       case PRODUCT_SAVE_SUCCESS:
-        return { loading: false, success: true, product: state.product.add(action.payload) };
+        return { loading: false, success: true, product: action.payload };
       case PRODUCT_SAVE_FAIL:
         return { loading: false, error: action.payload };
       case PRODUCT_DELETE_REQUEST:
@@ -36,7 +36,7 @@ function categoryListReducer(state = {products: []}, action) {
     case CATEGORIES_SAVE_REQUEST:
       return { loading: true };
     case CATEGORIES_SAVE_SUCCESS:
-      return { loading: false, success: true, categories: state.product.add(action.payload) };
+      return { loading: false, success: true, categories: action.payload };
     case CATEGORIES_SAVE_FAIL:
       return { loading: false, error: action.payload };
     case CATEGORIES_DELETE_REQUEST:
