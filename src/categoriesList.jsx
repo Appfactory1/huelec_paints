@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteCategory, listCategories, saveCategory } from './Actions/productActions';
 import { auth } from './Firebaseapp/firebase.utils';
+import { firestore } from './Firebaseapp/firebase.utils';
 import './list.css'
 // import axios from 'axios';
 // import data from '../data';
@@ -61,9 +62,15 @@ function CategoriesScreen(props) {
     props.history.push(`categorieslist/${id}`);
   }
 
-  const deleteHandler = (category) => {
-    dispatch(deleteCategory(category.id, category.imageuuid));
-    setUpdate(!update);
+  const deleteHandler = async (category) => {
+    const prod = await firestore.collection('Products').where('parent', '==', category.id).get();
+    if (!prod.docs.length) {
+      dispatch(deleteCategory(category.id, category.imageUuid));
+      setUpdate(!update);
+    }
+    else{
+      console.log("can't del");
+    }
   };
   const uploadFileHandler = (e) => {
     const file = e.target.files[0];
@@ -121,7 +128,7 @@ function CategoriesScreen(props) {
                 { <input type="file" onChange={uploadFileHandler}></input>} 
               </li>
               <li>
-                <button type="submit" className="button">
+                <button type="submit" className="button" >
                   {id ? 'Update' : 'Create'}
                 </button>
               </li>

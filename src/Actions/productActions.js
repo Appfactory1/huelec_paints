@@ -68,7 +68,7 @@ const saveProduct = (product) => async (dispatch) => {
   try {
     const uuid = uuidv4();
     dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
-    const uploadTask = storage.ref(`product/${uuid}`).put(product.imageUrl);
+    const uploadTask = await storage().ref(`product/${uuid}`).put(product.imageUrl);
     const image = storage().ref(`product/${uuid}`)
     image
     .getDownloadURL()
@@ -108,14 +108,15 @@ const fetchProduct = (productId) => async (dispatch) => {
     }
   };
 
-  const deleteProdcut = (productId, uuid) => async (dispatch) => {
+  const deleteProdcut = (productId) => async (dispatch) => {
     try {
-      // const {
-      //   userSignin: { userInfo },
-      // } = getState();
+      const prod = await firestore.collection('Products').doc(productId).get();
+      const uuid = prod.data()['imageUuid']
       dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
-      await storage.ref('product').child(uuid).delete()
+      await storage().ref('product').child(uuid).delete()
+      console.log("d1");
       const data = await firestore.collection('Products').doc(productId).delete();
+      console.log("d2");
       dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });
@@ -123,33 +124,58 @@ const fetchProduct = (productId) => async (dispatch) => {
   };
 
   const deleteCategory = (categoryId, uuid) => async (dispatch) => {
+    // try {
+    //   await storage().ref('product').child(console.log(uuid)).delete()
+    //   dispatch({ type: PRODUCT_DELETE_REQUEST, payload: categoryId });
+    //   await storage().ref('categoty').child(uuid).delete()
+    //   await firestore.collection('Products').where('parent', '==', categoryId).get.then(
+    //     async function(doc) {
+    //       await storage().ref('product').child(doc.data()['imageUuid']).delete();
+    //     }
+    //   )
+    //   console.log("1");
+    //   firestore.collection('Products').where('parent','==',categoryId).get()
+    //   .then(function(querySnapshot) {
+
+    //     // Once we get the results, begin a batch
+    //     var batch = firestore.batch();
+
+    //     querySnapshot.forEach(async function(doc)  {
+    //       console.log("2");
+    //         // For each doc, add a delete operation to the batch
+    //         batch.delete(doc.ref);
+    //     });
+
+    //     // Commit the batch
+    //     console.log("3");
+    //       return batch.commit();
+          
+    //      }).then(function() {
+    //       firestore.collection('Categories').doc(categoryId).delete().then(() => {
+    //         dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: true });
+    //       })
+    //   }); 
+      
+      
+    // } 
     try {
-
-      // const {
-      //   userSignin: { userInfo },
-      // } = getState();
-      dispatch({ type: PRODUCT_DELETE_REQUEST, payload: categoryId });
-      await storage.ref('category').child(uuid).delete()
-      firestore.collection('Products').where('parent','==',categoryId).get()
-      .then(function(querySnapshot) {
-        // Once we get the results, begin a batch
-        var batch = firestore.batch();
-
-        querySnapshot.forEach(function(doc) {
-            // For each doc, add a delete operation to the batch
-            batch.delete(doc.ref);
-        });
-
-        // Commit the batch
-          return batch.commit();
-         }).then(function() {
-          firestore.collection('Categories').doc(categoryId).delete().then(() => {
-            dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: true });
-          })
-      }); 
-      
-      
-    } catch (error) {
+      const prod = await firestore.collection('Products').where('parent', '==', categoryId).get();
+      if (!prod.docs.length) { 
+        dispatch({ type: PRODUCT_DELETE_REQUEST, payload: categoryId });
+        await storage().ref('categoty').child(uuid).delete()
+        console.log("d1");
+        const data = await firestore.collection('Categories').doc(categoryId).delete();
+        console.log("d2");
+        dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data })
+      }
+      // dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
+      // await storage().ref('categoty').child(uuid).delete()
+      // console.log("d1");
+      // const data = await firestore.collection('Categories').doc(productId).delete();
+      // console.log("d2");
+      // dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data });
+    }
+    catch (error) {
       dispatch({ type: PRODUCT_DELETE_FAIL, payload: error.message });
     }
   };

@@ -141,16 +141,8 @@ function ProductsListScreen(props) {
                 ></input>
               </li>
               <li>
-                <label htmlFor="imageUrl">Image</label>
-                <input
-                  type="text"
-                  name="image"
-                  value={imageUrl}
-                  id="image"
-                  onChange={(e) => setImageUrl(e.target.value)}
-                ></input>
-                {/* <input type="file" onChange={uploadFileHandler}></input>
-                {uploading && <div>Uploading...</div>} */}
+                <label htmlFor="image">Image</label>
+                { <input type="file" onChange={uploadFileHandler}></input>} 
               </li>
               <li>
                 <label htmlFor="countInStock">CountInStock</label>
