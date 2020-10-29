@@ -1,7 +1,17 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { signOutreduce } from '../Actions/userActions';
 
-function NavBar(){
+function NavBar(props){
+    const handleSubmit = async event => {
+        event.preventDefault();
+        dispatch(signOutreduce());
+    };
+
+    const userSignin = useSelector((state) => state.userSignin);
+    const {user} = userSignin;
+    const dispatch = useDispatch();
     return(
         <div>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -72,6 +82,9 @@ function NavBar(){
                 <Nav>
                 <Nav.Link href="#ContactUs"><h5>Contact us</h5><p>0321-4606877</p></Nav.Link>
                 </Nav>
+                {user ? <Button onClick={handleSubmit}> Sign Out </Button> :
+                <Nav.Link href='/signin'>Sign In</Nav.Link>}
+                {user ? <Nav.Link href='/categorieslist'>Category Management</Nav.Link> : <span></span>}
             </Navbar.Collapse>
             </Navbar>
         </div>

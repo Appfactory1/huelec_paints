@@ -24,9 +24,9 @@ function CategoriesScreen(props) {
   const {categories} = categoryDetail;
   const dispatch = useDispatch();
   const userSignin = useSelector((state) => state.userSignin);
-  
-  const [update, setUpdate] = useState(true);
   const {user} = userSignin;
+  const [update, setUpdate] = useState(true);
+  
 
 
   useEffect(() => {

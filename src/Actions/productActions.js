@@ -163,9 +163,9 @@ const fetchProduct = (productId) => async (dispatch) => {
       if (!prod.docs.length) { 
         dispatch({ type: PRODUCT_DELETE_REQUEST, payload: categoryId });
         await storage().ref('categoty').child(uuid).delete()
-        console.log("d1");
+        console.log("d3");
         const data = await firestore.collection('Categories').doc(categoryId).delete();
-        console.log("d2");
+        console.log("d4");
         dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data })
       }
       // dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
